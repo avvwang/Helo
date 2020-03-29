@@ -20,4 +20,5 @@ urlpatterns = [
     path("",MainView.Index ,name="Index"),
     path("about",MainView.about ,name="about"),
     path("Edit",MainView.Edit ,name="Edit"),
+    path("v",MainView.video ,name="v"),
 ]

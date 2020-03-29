@@ -30,7 +30,7 @@ def Edit(request):
     if request.method=="POST":
         req_type=request.GET.get("type")
         if req_type=="edit":
-            obj=content.objects.filter(type_id=1).values()
+            obj=content.objects.values()
             return  JsonResponse({"code":0,"data":list(obj),"count":obj.count()})
         elif req_type=="add_website":
             params = eval(request.POST.get("data"))
@@ -45,3 +45,7 @@ def Edit(request):
 
     m=list(menu.objects.values())
     return render(request,"include/System.html",context={"main":m})
+
+
+def video(request):
+    return render(request,"include/video.html")
