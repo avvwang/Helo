@@ -3,6 +3,8 @@
 from django.http import HttpResponseRedirect,JsonResponse,HttpResponse
 from django.shortcuts import render
 from WebStackPage.models import menu,content
+from django.views.decorators.cache import cache_page
+
 def Index(request):
     if request.method=="POST":
         req_type=request.GET.get("type")
@@ -46,6 +48,6 @@ def Edit(request):
     m=list(menu.objects.values())
     return render(request,"include/System.html",context={"main":m})
 
-
+@cache_page(60 * 30)
 def video(request):
     return render(request,"include/video.html")
