@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 """
 
 import os
+import djcelery
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -37,7 +38,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'WebStackPage'
+    'WebStackPage',
+    'tools',
+    'djcelery',  # 查看 celery 执行结果
+
 ]
 
 MIDDLEWARE = [
@@ -70,6 +74,12 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'Helo.wsgi.application'
 
+# # celery 定时任务
+# djcelery.setup_loader()# 模块加载
+# BROKER_URL = 'redis://127.0.0.1:6379/1' # 任务容器地址，redis数据库地址
+# CELERY_IMPORTS = ('CeleryTask.tasks') # 具体任务文件
+# CELERY_TIMEZONE = 'Asia/Shanghai' # celery 时区
+# CELERYBEAT_SCHEDULER = 'djcelery.schedulers.DatabaseScheduler' # celey处理器，固定
 
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
@@ -82,6 +92,16 @@ if DEBUG:
             'PASSWORD':"123456",
             "PORT": "3306",
             "HOST": "127.0.0.1",
+        }
+    }
+
+    CACHES = {
+        "default": {
+            "BACKEND": "django_redis.cache.RedisCache",
+            "LOCATION": "redis://127.0.0.1:6379/1",
+            "OPTIONS": {
+                "CLIENT_CLASS": "django_redis.client.DefaultClient",
+            }
         }
     }
 else:
@@ -125,9 +145,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
-# Internationalization
-# https://docs.djangoproject.com/en/2.1/topics/i18n/
 
 LANGUAGE_CODE = 'en-us'
 

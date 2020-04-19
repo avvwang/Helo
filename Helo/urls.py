@@ -22,12 +22,15 @@ from django.urls import include
 from WebStackPage import urls as web_urls
 from django.contrib.staticfiles.views import serve
 
+from tools import urls as tools_urls
+
 def return_static(request, path, insecure=True, **kwargs):
   return serve(request, path, insecure, **kwargs)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('m/', include(web_urls)),
+    path('t/', include(tools_urls)),
     re_path(r'^static/(?P<path>.*)$', return_static, name='static'),  # 添加这行
 
 ]

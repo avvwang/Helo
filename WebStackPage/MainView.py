@@ -51,3 +51,7 @@ def Edit(request):
 @cache_page(60 * 30)
 def video(request):
     return render(request,"include/video.html")
+
+
+def test(request):
+    return  render(request,"include/test.html")

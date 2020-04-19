@@ -15,11 +15,8 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path,include,re_path
-from WebStackPage import MainView
+from tools import views
 urlpatterns = [
-    path("",MainView.Index ,name="Index"),
-    path("about",MainView.about ,name="about"),
-    path("Edit",MainView.Edit ,name="Edit"),
-    path("v",MainView.video ,name="v"),
-    path("t",MainView.test ,name="v"),
+    path("",views.summit_email ,name="Index"),
+
 ]
